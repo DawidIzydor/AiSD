@@ -1,1 +1,1 @@
-#Algorytmy i Struktury Danych - wersja C#
+# Algorytmy i Struktury Danych - wersja C#
