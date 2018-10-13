@@ -182,7 +182,7 @@ namespace AiSD
 
 
             int iloscElementow = 25;
-            Console.WriteLine("Losowe dane (" + iloscElementow + " elementow");
+            Console.WriteLine("Losowe dane (" + iloscElementow + " elementow)");
 
             Console.WriteLine("\nSortowanie przez proste wybieranie");
 
