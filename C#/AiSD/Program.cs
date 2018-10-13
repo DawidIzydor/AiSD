@@ -36,8 +36,12 @@ namespace AiSD
 
             Wyszukiwanie wyszukiwanie = new Wyszukiwanie();
 
+            Console.WriteLine("Wyszukiwanie");
+
             int ZnalezionyIndex;
             int Szukaj;
+
+            Console.WriteLine("Przygotowane wczesniej dane");
 
             Console.WriteLine("\nLista danych");
             Wyswietl(Dane.ListaDanych);
@@ -92,16 +96,39 @@ namespace AiSD
             Console.WriteLine("Szukano " + Szukaj.ToString() + ", " + (ZnalezionyIndex >= 0 ? "Znaleziono na pozycji " + ZnalezionyIndex : "Nie znaleziono"));
 
 
+
+
+            Console.WriteLine("Losowe dane");
+
+            var ListaDanych = Dane.LosowaLista(1000);
+            Console.WriteLine("\nLista danych");
+            Wyswietl(ListaDanych);
+
+            Console.WriteLine("\nLiniowe");
+
+            ZnalezionyIndex = -1;
+            Szukaj = 44;
+            ZnalezionyIndex = wyszukiwanie.Liniowe(ListaDanych.ToArray(), Szukaj);
+            Console.WriteLine("Szukano " + Szukaj.ToString() + ", " + (ZnalezionyIndex >= 0 ? "Znaleziono na pozycji " + ZnalezionyIndex : "Nie znaleziono"));
+            ZnalezionyIndex = -1;
+            Szukaj = 777;
+            ZnalezionyIndex = wyszukiwanie.Liniowe(ListaDanych.ToArray(), Szukaj);
+            Console.WriteLine("Szukano " + Szukaj.ToString() + ", " + (ZnalezionyIndex >= 0 ? "Znaleziono na pozycji " + ZnalezionyIndex : "Nie znaleziono"));
+
+            
         }
 
         public void SortowanieTest()
         {
+            Console.WriteLine("Sortowanie");
+
             int[] TestowaTablica;
 
             int[] PosortowanaTablica;
             
             Sortowanie sort = new Sortowanie();
 
+            Console.WriteLine("Przygotowane wczesniej dane");
 
             Console.WriteLine("\nSortowanie przez proste wybieranie");
 
@@ -122,6 +149,86 @@ namespace AiSD
             Wyswietl(TestowaTablica);
 
             PosortowanaTablica = sort.PrzezProsteWstawianie(TestowaTablica);
+
+            Console.WriteLine("Po posortowaniu");
+            Wyswietl(PosortowanaTablica);
+
+
+
+            Console.WriteLine("\nSortowanie babelkowe");
+
+            Console.WriteLine("Przed sortowaniem");
+            TestowaTablica = Dane.ListaDanych.ToArray();
+            Wyswietl(TestowaTablica);
+
+            PosortowanaTablica = sort.Babelkowe(TestowaTablica);
+
+            Console.WriteLine("Po posortowaniu");
+            Wyswietl(PosortowanaTablica);
+
+
+
+            Console.WriteLine("\nSortowanie szybkie");
+
+            Console.WriteLine("Przed sortowaniem");
+            TestowaTablica = Dane.ListaDanych.ToArray();
+            Wyswietl(TestowaTablica);
+
+            PosortowanaTablica = new Sortowanie.QuickSort().Sortuj(TestowaTablica);
+
+            Console.WriteLine("Po posortowaniu");
+            Wyswietl(PosortowanaTablica);
+
+
+
+            int iloscElementow = 25;
+            Console.WriteLine("Losowe dane (" + iloscElementow + " elementow");
+
+            Console.WriteLine("\nSortowanie przez proste wybieranie");
+
+            Console.WriteLine("Przed sortowaniem");
+            TestowaTablica = Dane.LosowaLista(iloscElementow).ToArray();
+            Wyswietl(TestowaTablica);
+
+            PosortowanaTablica = sort.PrzezProsteWybieranie(TestowaTablica);
+
+            Console.WriteLine("Po posortowaniu");
+            Wyswietl(PosortowanaTablica);
+
+
+            Console.WriteLine("\nSortowanie przez proste wstawianie");
+
+            Console.WriteLine("Przed sortowaniem");
+            TestowaTablica = Dane.LosowaLista(iloscElementow).ToArray();
+            Wyswietl(TestowaTablica);
+
+            PosortowanaTablica = sort.PrzezProsteWstawianie(TestowaTablica);
+
+            Console.WriteLine("Po posortowaniu");
+            Wyswietl(PosortowanaTablica);
+
+
+
+            Console.WriteLine("\nSortowanie babelkowe");
+
+            Console.WriteLine("Przed sortowaniem");
+            TestowaTablica = Dane.LosowaLista(iloscElementow).ToArray();
+            Wyswietl(TestowaTablica);
+
+            PosortowanaTablica = sort.Babelkowe(TestowaTablica);
+
+            Console.WriteLine("Po posortowaniu");
+            Wyswietl(PosortowanaTablica);
+
+
+
+            Console.WriteLine("\nSortowanie szybkie");
+
+            Console.WriteLine("Przed sortowaniem");
+            TestowaTablica = Dane.LosowaLista(iloscElementow).ToArray();
+            Wyswietl(TestowaTablica);
+
+            PosortowanaTablica = new Sortowanie.QuickSort().Sortuj(TestowaTablica);
 
             Console.WriteLine("Po posortowaniu");
             Wyswietl(PosortowanaTablica);
