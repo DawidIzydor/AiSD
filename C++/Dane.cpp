@@ -18,9 +18,9 @@ int Dane::GetRandomInt()
 	return dist(mt);
 }
 
-list_ptr<int> Dane::GetRandomLista(int dlugosc)
+list<int> Dane::GetRandomLista(int dlugosc)
 {
-	list_ptr<int> ret = std::make_unique<list<int>>();
+	list<int> ret{};
 	if (dlugosc <= 0)
 	{
 		return ret;
@@ -28,7 +28,7 @@ list_ptr<int> Dane::GetRandomLista(int dlugosc)
 
 	for (int i = 0; i < dlugosc; ++i)
 	{
-		ret->push_back(GetRandomInt());
+		ret.push_back(GetRandomInt());
 	}
 
 	return ret;

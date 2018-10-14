@@ -1,5 +1,6 @@
 #pragma once
 #include "Dane.h"
+#include "Helper.h"
 
 class Wyszukiwanie
 {
@@ -9,8 +10,8 @@ public:
 	Wyszukiwanie();
 	~Wyszukiwanie();
 
-	int Liniowe(list_ptr<int>& przeszukiwanaKolekcja, int WyszukiwanyElement);
-	int Binarne(list_ptr<int>& posortowanaKolekcja, int szukanyElement);
-	int Interpolacyjne(list_ptr<int>& posortowanaKolekcja, int szukanyElement);
+	int Liniowe(list<int>& przeszukiwanaKolekcja, int WyszukiwanyElement);
+	int Binarne(list<int>& posortowanaKolekcja, int szukanyElement);
+	int Interpolacyjne(list<int>& posortowanaKolekcja, int szukanyElement);
 };
 

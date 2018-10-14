@@ -2,14 +2,10 @@
 #include <random>
 #include <vector>
 #include <memory>
+#include "Helper.h"
 
 #define MIN_RAND 0
 #define MAX_RAND 1000
-
-template<typename T>
-using list = std::vector<T>;
-template<typename T>
-using list_ptr = std::unique_ptr<list<T>>;
 
 class Dane
 {
@@ -22,8 +18,9 @@ public:
 	~Dane();
 
 	int GetRandomInt();
-	list_ptr<int> GetRandomLista(int dlugosc);
+	list<int> GetRandomLista(int dlugosc);
 
-	list<int> PosortowanaLista = list<int>{ 1, 2, 4, 6, 7, 8, 12, 25, 66, 78, 99, 123, 244, 567, 775, 3512 };
+	list<int> NieposortowanaLista = { 55, 61, 3, 2, 1, 11, 1612, 25, 22, 316 };
+	list<int> PosortowanaLista = { 1, 2, 4, 6, 7, 8, 12, 25, 66, 78, 99, 123, 244, 567, 775 };
 };
 
