@@ -119,7 +119,7 @@ namespace AiSD
 
         #region Interpolacyjne
 
-        // Wyszukiwanie binarne, dla posortowanej kolekcji
+        // Wyszukiwanie interpolacyjne, dla posortowanej kolekcji
 
         public int Interpolacyjne(int[] posortowanaKolekcja, int szukanyElement)
         {
@@ -132,7 +132,7 @@ namespace AiSD
             {
                 iloscIteracji++;
 
-                int SrodkowyEl = (LewyEl + PrawyEl) / 2;
+                int SrodkowyEl = (LewyEl + PrawyEl) * (szukanyElement - posortowanaKolekcja[LewyEl]) / (posortowanaKolekcja[PrawyEl] - posortowanaKolekcja[LewyEl]);
 
                 if (posortowanaKolekcja[SrodkowyEl] < szukanyElement)
                 {
@@ -156,15 +156,17 @@ namespace AiSD
             }
         }
 
-        public int Interpolacyjne<T>(T[] posortowanaKolekcja, T szukanyElement) where T: IComparable
+
+        public int Interpolacyjne<T>(T[] posortowanaKolekcja, T szukanyElement) where T: IComparable, Interfaces.IMathOperations, Interfaces.IIntable
         {
             int LewyEl = 0;
             int PrawyEl = posortowanaKolekcja.Length - 1;
 
             while (LewyEl < PrawyEl)
             {
+                T wspolczynnik = (T)szukanyElement.Substract(posortowanaKolekcja[LewyEl]).Divide(posortowanaKolekcja[PrawyEl].Substract(posortowanaKolekcja[LewyEl]));
 
-                int SrodkowyEl = (LewyEl + PrawyEl) / 2;
+                int SrodkowyEl = (LewyEl + PrawyEl) * wspolczynnik.ToInt();
 
                 if (posortowanaKolekcja[SrodkowyEl].CompareTo(szukanyElement) < 0)
                 {

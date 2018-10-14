@@ -11,5 +11,6 @@ public:
 
 	int Liniowe(list_ptr<int>& przeszukiwanaKolekcja, int WyszukiwanyElement);
 	int Binarne(list_ptr<int>& posortowanaKolekcja, int szukanyElement);
+	int Interpolacyjne(list_ptr<int>& posortowanaKolekcja, int szukanyElement);
 };
 

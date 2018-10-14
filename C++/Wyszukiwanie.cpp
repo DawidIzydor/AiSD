@@ -66,3 +66,38 @@ int Wyszukiwanie::Binarne(list_ptr<int>& posortowanaKolekcja, int szukanyElement
 		return -1;
 	}
 }
+
+int Wyszukiwanie::Interpolacyjne(list_ptr<int>& posortowanaKolekcja, int szukanyElement)
+{
+	int iloscIteracji = 0;
+
+	int LewyEl = 0;
+	int PrawyEl = posortowanaKolekcja->size() - 1;
+
+	while (LewyEl < PrawyEl)
+	{
+		iloscIteracji++;
+
+		int SrodkowyEl = (LewyEl + PrawyEl) / 2;
+
+		if (posortowanaKolekcja->at(SrodkowyEl) < szukanyElement)
+		{
+			LewyEl = SrodkowyEl + 1;
+		}
+		else
+		{
+			PrawyEl = SrodkowyEl;
+		}
+	}
+
+	std::cout << "Ilosc iteracji: " << iloscIteracji << std::endl;
+
+	if (posortowanaKolekcja->at(LewyEl) == szukanyElement)
+	{
+		return LewyEl;
+	}
+	else
+	{
+		return -1;
+	}
+}
