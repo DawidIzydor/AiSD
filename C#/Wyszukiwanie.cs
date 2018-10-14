@@ -156,9 +156,37 @@ namespace AiSD
             }
         }
 
-       // TODO
-       // Zgeneralizowane Interpolacyjne wyszukiwanie
+        public int Interpolacyjne<T>(T[] posortowanaKolekcja, T szukanyElement) where T: IComparable
+        {
+            int LewyEl = 0;
+            int PrawyEl = posortowanaKolekcja.Length - 1;
 
+            while (LewyEl < PrawyEl)
+            {
+
+                int SrodkowyEl = (LewyEl + PrawyEl) / 2;
+
+                if (posortowanaKolekcja[SrodkowyEl].CompareTo(szukanyElement) < 0)
+                {
+                    LewyEl = SrodkowyEl + 1;
+                }
+                else
+                {
+                    PrawyEl = SrodkowyEl;
+                }
+            }
+            
+
+            if (posortowanaKolekcja[LewyEl].CompareTo(szukanyElement) == 0)
+            {
+                return LewyEl;
+            }
+            else
+            {
+                return -1;
+            }
+        }
+   
 
         #endregion
     }
