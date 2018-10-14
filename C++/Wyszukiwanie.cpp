@@ -78,7 +78,7 @@ int Wyszukiwanie::Interpolacyjne(list_ptr<int>& posortowanaKolekcja, int szukany
 	{
 		iloscIteracji++;
 
-		int SrodkowyEl = (LewyEl + PrawyEl) / 2;
+		int SrodkowyEl = (LewyEl + PrawyEl) * (szukanyElement - posortowanaKolekcja->at(LewyEl)) / (posortowanaKolekcja->at(PrawyEl) - posortowanaKolekcja->at(LewyEl));
 
 		if (posortowanaKolekcja->at(SrodkowyEl) < szukanyElement)
 		{
