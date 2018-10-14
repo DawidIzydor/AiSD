@@ -100,7 +100,7 @@ namespace AiSD
 
             Console.WriteLine("Losowe dane");
 
-            var ListaDanych = Dane.LosowaLista(1000);
+            var ListaDanych = Dane.LosowaLista(25);
             Console.WriteLine("\nLista danych");
             Wyswietl(ListaDanych);
 

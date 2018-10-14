@@ -131,8 +131,12 @@ namespace AiSD
             while (LewyEl < PrawyEl)
             {
                 iloscIteracji++;
+                
+                int Wspolczynnik = (szukanyElement - posortowanaKolekcja[LewyEl]) * (PrawyEl - LewyEl) / (posortowanaKolekcja[PrawyEl] - posortowanaKolekcja[LewyEl]);
 
-                int SrodkowyEl = (LewyEl + PrawyEl) * (szukanyElement - posortowanaKolekcja[LewyEl]) / (posortowanaKolekcja[PrawyEl] - posortowanaKolekcja[LewyEl]);
+                if (Wspolczynnik < 0) break; // bez tego czasem się zapętla, do sprawdzenia
+
+                int SrodkowyEl = LewyEl + Wspolczynnik;
 
                 if (posortowanaKolekcja[SrodkowyEl] < szukanyElement)
                 {
@@ -158,7 +162,8 @@ namespace AiSD
 
 
         public int Interpolacyjne<T>(T[] posortowanaKolekcja, T szukanyElement) where T: IComparable, Interfaces.IMathOperations, Interfaces.IIntable
-        {
+        { 
+            
             int LewyEl = 0;
             int PrawyEl = posortowanaKolekcja.Length - 1;
 
