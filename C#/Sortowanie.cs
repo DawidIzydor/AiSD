@@ -95,6 +95,41 @@ namespace AiSD
             return KolekcjaDoPosortowania;
         }
 
+        public int[] Kubelkowe(int[] KolekcjaDoPosortowania)
+        {
+            int iloscIteracji = 0;
+
+            int[] kubelki = new int[KolekcjaDoPosortowania.Length];
+
+            for(int i = 0; i < kubelki.Length; ++i)
+            {
+                iloscIteracji++;
+                kubelki[i] = 0;
+            }
+
+            foreach (var el in KolekcjaDoPosortowania)
+            {
+                iloscIteracji++;
+                kubelki[el]++;
+            }
+
+            int k = 0;
+            int[] ret = new int[KolekcjaDoPosortowania.Length];
+
+            for(int j = 0; j < kubelki.Length; ++j)
+            {
+                for (int i = 0; i < kubelki[j]; ++i)
+                {
+                    iloscIteracji++;
+                    ret[k++] = j;
+                }
+            }
+
+            Console.WriteLine("Ilosc iteracji: " + iloscIteracji);
+
+            return ret;
+        }
+
         public class QuickSort
         {
             int iloscIteracji = 0;

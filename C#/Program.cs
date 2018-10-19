@@ -232,6 +232,18 @@ namespace AiSD
 
             Console.WriteLine("Po posortowaniu");
             Wyswietl(PosortowanaTablica);
+
+
+            Console.WriteLine("\nSortowanie kubełkowe");
+
+            Console.WriteLine("Przed sortowaniem");
+            TestowaTablica = Dane.LosowaLista(iloscElementow).ToArray();
+            Wyswietl(TestowaTablica);
+
+            PosortowanaTablica = sort.Kubelkowe(TestowaTablica);
+
+            Console.WriteLine("Po posortowaniu");
+            Wyswietl(PosortowanaTablica);
         }
 
         public void RunAllTests()
