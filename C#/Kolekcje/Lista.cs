@@ -1,17 +1,31 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Text;
 
 namespace CSharp.Kolekcje
 {
-    class Lista<T>
+    class Lista<T> : IEnumerable<T>
     {
 
         ListElement<T> pierwszy;
         ListElement<T> ostatni;
-        public int Dlugosc { private set; get; } = 0;
+        public int _dlugosc = 0;
+        public int Dlugosc
+        {
+            private set
+            {
+                _dlugosc = value;
 
-        private class ListElement<T>
+                if(_dlugosc < 0)
+                {
+                    _dlugosc = 0;
+                }
+            }
+            get { return _dlugosc; }
+        }
+
+        public class ListElement<T>
         {
             private ListElement<T> _nastepny = null;
             private ListElement<T> _poprzedni = null;
@@ -21,14 +35,14 @@ namespace CSharp.Kolekcje
                 get => _nastepny;
                 set
                 {
-                    if (_nastepny != value)
+                    if (value != _nastepny)
                     {
+                        _nastepny = value;
+
                         if (_nastepny != null)
                         {
-                            _nastepny.Poprzedni = value;
+                            _nastepny.Poprzedni = this;
                         }
-
-                        _nastepny = value;
                     }
                 }
             }
@@ -37,18 +51,18 @@ namespace CSharp.Kolekcje
                 get => _poprzedni;
                 set
                 {
-                    if (_poprzedni != value)
+                    if (value != _poprzedni)
                     {
-                        if (_poprzedni != null)
-                        {
-                            _poprzedni.Nastepny = value;
-                        }
-
                         _poprzedni = value;
 
+                        if (_poprzedni != null)
+                        {
+                            _poprzedni.Nastepny = this;
+                        }
                     }
                 }
             }
+
             public T Wartosc { get; }
 
             public T Get(int pozycja)
@@ -97,29 +111,16 @@ namespace CSharp.Kolekcje
                 }
             }
 
-            public ListElement(T Wartosc)
+            public ListElement(T Wartosc, ListElement<T> Poprzedni, ListElement<T> Nastepny)
             {
                 this.Wartosc = Wartosc;
-            }
-
-            public ListElement(T Wartosc, ListElement<T> Poprz)
-            {
-                this.Wartosc = Wartosc;
-                this.Poprzedni = Poprz;
-            }
-
-            public ListElement(T Wartosc, ListElement<T> Nast, ListElement<T> Poprz)
-            {
-                this.Wartosc = Wartosc;
-                this.Nastepny = Nast;
-                this.Poprzedni = Poprz;
+                this.Nastepny = Nastepny;
+                this.Poprzedni = Poprzedni;
             }
         }
 
         public Lista()
-        {
-
-        }
+        {}
         
         public int PushBack(T element)
         {
@@ -130,16 +131,85 @@ namespace CSharp.Kolekcje
         {
             if(pierwszy == null)
             {
-                pierwszy = new ListElement<T>(element);
+                pierwszy = new ListElement<T>(element, null, null);
                 ostatni = pierwszy;
             }
             else
             {
-                ostatni.Nastepny = new ListElement<T>(element);
+                ostatni.Nastepny = new ListElement<T>(element, ostatni, null);
                 ostatni = ostatni.Nastepny;
             }
 
             return ++Dlugosc;
+        }
+
+        public int DodajNaPoczatek(T element)
+        {
+            if(pierwszy == null)
+            {
+                pierwszy = new ListElement<T>(element, null, null);
+                ostatni = pierwszy;
+            }
+            else
+            {
+                pierwszy = new ListElement<T>(element, null, pierwszy);
+            }
+
+            return ++Dlugosc;
+        }
+
+        public int UsunZPoczatku()
+        {
+            if(pierwszy == null)
+            {
+                return -1;
+            }
+
+            pierwszy = pierwszy.Nastepny;
+
+            if(pierwszy != null)
+            {
+                pierwszy.Poprzedni = null;
+            }
+
+            return --Dlugosc;
+        }
+
+        public int UsunZKonca()
+        {
+            if (pierwszy == null)
+            {
+                return -1;
+            }
+
+            ostatni = ostatni.Poprzedni;
+
+            if (ostatni != null)
+            {
+                ostatni.Nastepny = null;
+            }
+
+            return --Dlugosc;
+        }
+
+        public int UsunZPozycji(int pozycja)
+        {
+            if(pozycja > Dlugosc)
+            {
+                return -1;
+            }
+
+            if(pozycja == 0)
+            {
+                return UsunZPoczatku();
+            }
+            if(pozycja == Dlugosc-1)
+            {
+                return UsunZKonca();
+            }
+
+            //TODO
+            throw new NotImplementedException();
         }
 
         public T Get(int pozycja)
@@ -157,7 +227,7 @@ namespace CSharp.Kolekcje
 
         private ListElement<T> GetLE(int pozycja)
         {
-            if (pozycja > Dlugosc)
+            if (pozycja > Dlugosc || pierwszy == null)
             {
                 return null;
             }
@@ -166,7 +236,7 @@ namespace CSharp.Kolekcje
             // srednio O(n/4)
             if (pozycja > Dlugosc / 2)
             {
-                return ostatni.GetLE(-(Dlugosc - pozycja));
+                return ostatni.GetLE(-(Dlugosc - pozycja)+1);
             }
             else
             {
@@ -176,14 +246,75 @@ namespace CSharp.Kolekcje
 
         public int DodajNaPozycje(T element, int pozycja)
         {
-            if(pozycja > Dlugosc)
+            if(pozycja > Dlugosc || pierwszy == null)
             {
                 return -1;
             }
 
-            GetLE(pozycja).Nastepny = new ListElement<T>(element);
+            if(pozycja == 0)
+            {
+                return DodajNaPoczatek(element);
+            }
+
+            if(pozycja == Dlugosc-1)
+            {
+                return DodajNaKoniec(element);
+            }
+
+            var gl = GetLE(pozycja-1);
+
+            gl.Nastepny = new ListElement<T>(element, gl, gl.Nastepny);
 
             return ++Dlugosc;
         }
+
+        #region IEnumerable
+        public class ListaEnumerator : IEnumerator<T>
+        {
+            public ListElement<T> CurrentLE { get; private set; }
+            public ListElement<T> First { get; }
+
+            public T Current => CurrentLE.Wartosc;
+
+            object IEnumerator.Current => CurrentLE.Wartosc;
+
+            public ListaEnumerator(ListElement<T> First)
+            {
+                this.First = First;
+            }
+            
+            bool IEnumerator.MoveNext()
+            {
+                if (CurrentLE == null)
+                {
+                    CurrentLE = First;
+                }
+                else
+                {
+                    CurrentLE = CurrentLE.Nastepny;
+                }
+
+                return CurrentLE != null;
+            }
+
+            public void Reset()
+            {
+                CurrentLE = null;
+            }
+
+            public void Dispose()
+            {}
+        }
+
+        public IEnumerator<T> GetEnumerator()
+        {
+            return new ListaEnumerator(pierwszy);
+        }
+
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return (IEnumerator)this;
+        }
+        #endregion
     }
 }

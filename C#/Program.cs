@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CSharp.Kolekcje;
+using System;
 using System.Collections.Generic;
 
 namespace AiSD
@@ -253,6 +254,132 @@ namespace AiSD
             
         }
 
+        public void KolekcjaTest()
+        {
+            Console.WriteLine("Test Listy");
+
+            Lista<int> lista = new Lista<int>();
+
+            int dlugosc = 0;
+
+            if (lista.Get(0) == default(int))
+            {
+                Console.WriteLine("OK");
+            }
+            else
+            {
+                Console.WriteLine("Blad");
+            }
+
+            lista.DodajNaKoniec(1); dlugosc++;
+
+            if(lista.Get(0) == 1)
+            {
+                Console.WriteLine("OK");
+            }
+            else
+            {
+                Console.WriteLine("Blad");
+            }
+
+            lista.DodajNaKoniec(2); dlugosc++;
+
+            if (lista.Get(1) == 2)
+            {
+                Console.WriteLine("OK");
+            }
+            else
+            {
+                Console.WriteLine("Blad");
+            }
+
+            lista.DodajNaKoniec(3); dlugosc++;
+
+            if (lista.Get(2) == 3)
+            {
+                Console.WriteLine("OK");
+            }
+            else
+            {
+                Console.WriteLine("Blad");
+            }
+
+            lista.DodajNaPozycje(20, 1); dlugosc++;
+
+            if (lista.Get(1) == 20)
+            {
+                Console.WriteLine("OK");
+            }
+            else
+            {
+                Console.WriteLine("Blad");
+            }
+
+            lista.DodajNaPozycje(21, 0); dlugosc++;
+
+            if (lista.Get(0) == 21)
+            {
+                Console.WriteLine("OK");
+            }
+            else
+            {
+                Console.WriteLine("Blad");
+            }
+
+            lista.DodajNaPoczatek(55); dlugosc++;
+
+            if (lista.Get(0) == 55)
+            {
+                Console.WriteLine("OK");
+            }
+            else
+            {
+                Console.WriteLine("Blad");
+            }
+
+            if(lista.Dlugosc == dlugosc)
+            {
+                Console.WriteLine("OK");
+            }
+            else
+            {
+                Console.WriteLine("Blad");
+            }
+
+            Console.WriteLine("\nZawartosc listy");
+            foreach (var el in lista)
+            {
+                Console.WriteLine(el);
+            }
+
+            lista.UsunZPoczatku();
+            if (lista.Get(0) == 21)
+            {
+                Console.WriteLine("OK");
+            }
+            else
+            {
+                Console.WriteLine("Blad");
+            }
+
+            lista.UsunZKonca();
+            if(lista.Get(lista.Dlugosc-1) == 2)
+            {
+                Console.WriteLine("OK");
+            }
+            else
+            {
+                Console.WriteLine("Blad");
+            }
+
+            Console.WriteLine("\nZawartosc listy po kasowaniu");
+            foreach (var el in lista)
+            {
+                Console.WriteLine(el);
+            }
+
+        }
+
         public Program()
         {
               
@@ -262,7 +389,9 @@ namespace AiSD
         {
             Program program = new Program();
 
-            program.RunAllTests();
+            //program.RunAllTests();
+
+            program.KolekcjaTest();
 
             Console.ReadKey();
         }
