@@ -208,8 +208,11 @@ namespace CSharp.Kolekcje
                 return UsunZKonca();
             }
 
-            //TODO
-            throw new NotImplementedException();
+            var leatpos = GetLE(pozycja);
+
+            leatpos.Poprzedni.Nastepny = leatpos.Nastepny;
+
+            return --Dlugosc;
         }
 
         public T Get(int pozycja)

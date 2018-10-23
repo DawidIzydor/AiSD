@@ -262,6 +262,8 @@ namespace AiSD
 
             int dlugosc = 0;
 
+            Console.WriteLine("\nTest dodawania");
+
             if (lista.Get(0) == default(int))
             {
                 Console.WriteLine("OK");
@@ -352,6 +354,8 @@ namespace AiSD
                 Console.WriteLine(el);
             }
 
+            Console.WriteLine("\nTest usuwania");
+
             lista.UsunZPoczatku();
             if (lista.Get(0) == 21)
             {
@@ -364,6 +368,16 @@ namespace AiSD
 
             lista.UsunZKonca();
             if(lista.Get(lista.Dlugosc-1) == 2)
+            {
+                Console.WriteLine("OK");
+            }
+            else
+            {
+                Console.WriteLine("Blad");
+            }
+
+            lista.UsunZPozycji(1);
+            if (lista.Get(1) == 20)
             {
                 Console.WriteLine("OK");
             }
